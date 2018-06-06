@@ -1,0 +1,9 @@
+C:\Users\llara\source\repos\json2tweets\json2tweets\bin\Debug\json2tweets.exe.config
+C:\Users\llara\source\repos\json2tweets\json2tweets\bin\Debug\json2tweets.exe
+C:\Users\llara\source\repos\json2tweets\json2tweets\bin\Debug\json2tweets.pdb
+C:\Users\llara\source\repos\json2tweets\json2tweets\obj\Debug\json2tweets.csprojResolveAssemblyReference.cache
+C:\Users\llara\source\repos\json2tweets\json2tweets\obj\Debug\json2tweets.csproj.CoreCompileInputs.cache
+C:\Users\llara\source\repos\json2tweets\json2tweets\obj\Debug\json2tweets.exe
+C:\Users\llara\source\repos\json2tweets\json2tweets\obj\Debug\json2tweets.pdb
+C:\Users\llara\source\repos\json2tweets\json2tweets\bin\Debug\Newtonsoft.Json.dll
+C:\Users\llara\source\repos\json2tweets\json2tweets\bin\Debug\Newtonsoft.Json.xml
