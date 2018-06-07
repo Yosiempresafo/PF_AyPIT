@@ -38,7 +38,39 @@ c = Billboard.getCounter(lista, 3)
 listaTop = c.most_common(100)
 
 
+dicLove = {}
+dicKnow={}
+dicWant={}
 
+for rola in lista:
+    ng = Billboard.get_ngrams(rola,2)
+    for n in ng:
+        splitGram=n.split(' ')
+        if splitGram[0]=="love" or splitGram[1]=="love":
+            if splitGram[0]!="love":
+                dicLove[splitGram[0]]= dicLove.get(splitGram[0], 0) + 1
+            else:
+                dicLove[splitGram[1]]= dicLove.get(splitGram[0], 0) + 1
+        if splitGram[0]=="know" or splitGram[1]=="know":
+            if splitGram[0]!="know":
+                dicKnow[splitGram[0]]= dicKnow.get(splitGram[0], 0) + 1
+            else:
+                dicKnow[splitGram[1]]= dicKnow.get(splitGram[0], 0) + 1
+        if splitGram[0]=="want" or splitGram[1]=="want":
+            if splitGram[0]!="want":
+                dicWant[splitGram[0]]= dicWant.get(splitGram[0], 0) + 1
+            else:
+                dicWant[splitGram[1]]= dicWant.get(splitGram[0], 0) + 1
+            
+
+from scipy.spatial import distance
+love = (dicLove['i'],dicLove['you'],dicLove['in'], dicLove['your'], dicLove['that'], dicLove['dont'])
+know = (dicKnow['i'],dicKnow['you'],dicKnow['in'], dicKnow['your'], dicKnow['that'], dicKnow['dont'])
+want = (dicWant['i'],dicWant['you'],dicWant['in'], dicWant['your'], dicWant['that'], dicWant['dont'])
+
+love2know = distance.euclidean(love,know)
+know2Want = distance.euclidean(know,want)
+want2Love = distance.euclidean(want,love)
 
 
 
