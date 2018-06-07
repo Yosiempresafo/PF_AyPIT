@@ -15,7 +15,7 @@ namespace makeData
 
         static void leerStopWords()
         {
-            string path = @"./data/stop.txt";
+            string path = @"./data/stop_en.txt";
             HashSet<string> types = new HashSet<string>();
 
             using (StreamReader sr = new StreamReader(path))
@@ -40,8 +40,8 @@ namespace makeData
         {
             //Leer archivo
             string path = @"./data/";
-            string inputData = "corpusTweetsTest.csv";
-            string exitData = "corpusTweetsCaracterizado.csv";
+            string inputData = "corpusBillboard.csv";
+            string exitData = "corpusBillboardCaracterizado.csv";
 
             HashSet<string> types = new HashSet<string>();
             leerStopWords();
@@ -54,16 +54,15 @@ namespace makeData
                     string line = sr.ReadLine();
                     string[] lineArray = line.Split(',');
 
-                    //descartamos tuits tipo 3
-                    if (lineArray[1]!="3")
+                    //descartamos letras en blanco o etiquetas en blanco
+                    if (lineArray[0] != "rank" |  lineArray[4]!=""| lineArray[4] != "NA" | lineArray[6] != "")
                     {
-                        string tweet = lineArray[0];
-                        //tweet.Replace("|", ""); //quitar comas
-                        tweet.Replace("|", ","); //regresar comas
-                        tweet = quitarStopWords(tweet); //quitar stops words
-                        tweet = tweet.ToLower(); //minusculas
+                        string letra = lineArray[4];
 
-                        var ngrams = NGramGenerator.generate(tweet.ToArray(), 3, "");//creamos trigramas
+                        letra = quitarStopWords(letra); //quitar stops words
+                        letra = letra.ToLower(); //minusculas
+
+                        var ngrams = NGramGenerator.generate(letra.ToArray(), 3, "");//creamos trigramas
                         dynamic ngramsArray = ngrams.toArray();
                         
                         foreach (var token in ngramsArray)
@@ -83,19 +82,17 @@ namespace makeData
                     string[] lineArray = line.Split(',');
 
                     //descartamos tuits tipo 3
-                    if (lineArray[1] != "3")
+                    if (lineArray[0] != "rank" | lineArray[4] != "" | lineArray[4] != "NA" | lineArray[6] != "")
                     {
-                        string tweet = lineArray[0];
-                        //tweet.Replace("|", ""); //quitar comas
-                        tweet.Replace("|", ","); //regresar comas
-                        tweet = quitarStopWords(tweet); //quitar stops words
-                        tweet = tweet.ToLower(); //minusculas
+                        string letra = lineArray[4];
+                        letra = quitarStopWords(letra); //quitar stops words
+                        letra = letra.ToLower(); //minusculas
 
-                        var ngrams = NGramGenerator.generate(tweet.ToArray(), 3, "");//creamos trigramas
+                        var ngrams = NGramGenerator.generate(letra.ToArray(), 3, "");//creamos trigramas
                         dynamic ngramsArray = ngrams.toArray();
 
-                        int[] tweetCaract = new int[types.Count];
-                        Array.Clear(tweetCaract, 0, tweetCaract.Length);
+                        int[] caract = new int[types.Count];
+                        Array.Clear(caract, 0, caract.Length);
 
                         int count = 0;
                         //for (int i = 0; i < types.Count; i++)
@@ -105,51 +102,24 @@ namespace makeData
                             {
                                 if (item==ngramsArray[j])
                                 {
-                                    tweetCaract[count] = 1;
+                                    caract[count] = 1;
                                 }
                             }
                             count++;
                         }
 
                         //tweetsFinal.Add(tweetCaract);
-                        //escribir en archivo
-                        int target;
-                        if (lineArray[2] == "amlo")
-                        {
-                            target = 0;
-                        }
-                        else if (lineArray[2] == "anaya")
-                        {
-                            target = 1;
-                        }
-                        else if (lineArray[2] == "meade")
-                        {
-                            target = 2;
-                        }
-                        else if (lineArray[2] == "bronco")
-                        {
-                            target = 3;
-                        }
-                        else if (lineArray[2] == "debate")
-                        {
-                            target = 4;
-                        }
-                        else {
-                            target = 5;
-                        }
 
 
                         using (TextWriter tw = new StreamWriter(path + exitData, true))
                         {
-                            for (int i = 0; i < tweetCaract.Length; i++)
+                            for (int i = 0; i < caract.Length; i++)
                             {
-                                tw.Write(tweetCaract[i]);
+                                tw.Write(caract[i]);
                             }
-                            if (target!=5)
-                            {
-                                tw.Write(" " + lineArray[1] + " " + target);
-                                tw.WriteLine();
-                            }                          
+                            
+                            tw.Write(" " + lineArray[6]);
+                            tw.WriteLine();                                                  
                         }
 
                     }

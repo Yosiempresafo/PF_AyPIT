@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 print("Twitter Sentiment Analysis")
 print()
 
-filee = open('./data/corpusTweetsCaracterizado.csv')
+filee = open('../../corpus/corpusTweetsCaracterizado.csv')
 
 X=[]  
 y=[]

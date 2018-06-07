@@ -39,6 +39,6 @@ doc_term_matrix = [dictionary.doc2bow(doc) for doc in doc_clean]
 
 Lda = gensim.models.ldamodel.LdaModel
 
-ldamodel = Lda(doc_term_matrix, num_topics=3, id2word = dictionary, passes=5)
+ldamodel = Lda(doc_term_matrix, num_topics=50, id2word = dictionary, passes=50)
 
-print(ldamodel.print_topics(num_topics=5, num_words=10))
+print(ldamodel.print_topics(num_topics=30, num_words=10))
